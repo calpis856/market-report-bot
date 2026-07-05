@@ -2,5 +2,5 @@ google-genai==2.10.0
 python-dotenv==1.2.2
 requests==2.33.1
 yfinance==1.2.2
-numpy==1.24.4
-pandas==2.1.4
+numpy>=2.3.2
+pandas>=3.0.0
