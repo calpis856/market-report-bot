@@ -1,3 +1,5 @@
+import traceback
+
 from database import create_table, save_market_data
 from stock import get_market_data
 from news import get_market_news
@@ -8,6 +10,7 @@ from news_processor import (
 from prompt_builder import build_prompt
 from ai import generate_summary
 from discord_notify import send_message
+
 
 def main():
 
@@ -57,4 +60,19 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+
+    except Exception as e:
+        error_message = (
+            "⚠️ マーケットレポートの生成に失敗しました。\n\n"
+            f"エラー内容:\n{str(e)}"
+        )
+
+        print(error_message)
+        traceback.print_exc()
+
+        try:
+            send_message(error_message)
+        except Exception:
+            print("Discordへのエラー通知にも失敗しました。")
